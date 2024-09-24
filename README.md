@@ -2,7 +2,7 @@
 Will be public repository that computes statistics of either point clouds or networks
 
 ## Entropy_Metrics.py
-Contains the following functions:
+Uses the built in functions for computing entropy from scipy.stats.  Contains the following functions:
 
 **weight_adj** return the adjacency matrix weighted by $1/R_{ij}$ where 
 $$
