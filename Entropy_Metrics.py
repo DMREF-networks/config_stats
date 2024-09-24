@@ -90,46 +90,4 @@ def edge_entropy(weighted_matrix):
 
     return st.differential_entropy(weights)
 
-"""
-resistance calculates the effective resistance of a 2d conducting network assuing current flows from the 
-upper left most corner to the bottom right most corner
 
-Paramaters : 
-    coordinates : a 2d array of x and y coordinates, of dimension (n,2) where n is the number of points 
-    in the graph 
-    adjacency_matrix : the adjacency_matrix of the graph 
-
-Returns : 
-    effective_resistance : weighted adjacency matrix of the graph
-"""
-
-def resistance(coordinates, adjacency_matrix):
-    current = 1 
-    n_node = np.shape(coordinates)[0] 
-    weighted_matrix = weight_adj(coordinates, adjacency_matrix)
-    diag = np.diag(np.sum(weighted_matrix, axis = 1))
-    Amat = diag - weighted_matrix
-    Amat = Amat[:-1,:-1]
-    Ivec = np.zeros((n_node-1,1))
-    Ivec[0] = current 
-    voltage = np.linalg.solve(Amat, Ivec)
-    effective_resistance = voltage[0,0] / current
-    return effective_resistance
-
-"""
-WARNING: the many of the capabilities that this function utilizes are depreciated and should not be used;
-it is only here because of records
-"""
-
-# def graph_draw(point_cloud):
-    
-#     delaunay = weights.Voronoi(point_cloud, criterion='rook', clip=sh.box(0,0,2000,2000))
-    
-#     graph = delaunay.to_networkx() 
-     
-#     positions = dict(zip(graph.nodes, point_cloud))
-    
-#     Fignewton = plt.axes(aspect = "equal")
-    
-#     kx.draw(graph,positions,ax = Fignewton,node_size=5,node_color="k",edge_color="k",alpha=1,width = 3)
-#     plt.show()
