@@ -100,7 +100,7 @@ Paramaters :
     adjacency_matrix : the adjacency_matrix of the graph 
 
 Returns : 
-    effective_resistance : weighted adjacency matrix of the graph
+    effective_resistance : effective resistance across the diagonal of the network
 """
 
 def resistance(coordinates, adjacency_matrix):
@@ -108,8 +108,8 @@ def resistance(coordinates, adjacency_matrix):
     n_node = np.shape(coordinates)[0] 
     weighted_matrix = weight_adj(coordinates, adjacency_matrix)
     diag = np.diag(np.sum(weighted_matrix, axis = 1))
-    Amat = diag - weighted_matrix
-    Amat = Amat[:-1,:-1]
+    Amat = diag - weighted_matrix    # this is the graph Laplacian of the weighted adjacency matrix
+    Amat = Amat[:-1,:-1]             # its rank n-1 so remove one degeneracy
     Ivec = np.zeros((n_node-1,1))
     Ivec[0] = current 
     voltage = np.linalg.solve(Amat, Ivec)
