@@ -45,8 +45,7 @@ def weight_adj(coordinates, adjacency_matrix):
     
     conductances = dr/100
     
-    # weighted_matrix = adjacency_matrix / conductances
-    weighted_matrix = adjacency_matrix * dr
+    weighted_matrix = adjacency_matrix / conductances
     
     for i in range(n_node):
         weighted_matrix[i,i] = 0 # needed to set the nan_valyes to zero 
