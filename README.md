@@ -1,7 +1,7 @@
 # config_stats
 Will be public repository that computes statistics of either point clouds or networks
 
-# Entropy_Metrics.py
+## Entropy_Metrics.py
 Contains the following functions:
 
 **weight_adj** return the adjacency matrix weighted by $1/R_{ij}$ where 
@@ -20,3 +20,6 @@ $$
 E_e = -\int_{\mathbb{R}} f_E(x)\log(f_E(x))dx
 $$
 Note the weights are the resistances, so they are proportional to 1/length.
+
+
+##
