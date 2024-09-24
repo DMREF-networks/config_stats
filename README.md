@@ -21,5 +21,9 @@ E_e = -\int_{\mathbb{R}} f_E(x)\log(f_E(x))dx
 $$
 Note the weights are the resistances, so they are proportional to 1/length.
 
+**resistance** returns the effective resistance across the diagonal of the network from the 
+upper left most corner to the bottom right most corner
 
-##
+
+## Compute_Entropy.ipynb
+Computes the entropies and resistances across the network and produces plots
