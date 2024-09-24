@@ -43,9 +43,9 @@ def weight_adj(coordinates, adjacency_matrix):
 
     dr = np.sqrt(dx**2 + dy**2)
     
-    conductances = dr/100
+    conductances = dr/100   # this is the resistance R_{ij} between two nodes if an edge existed
     
-    weighted_matrix = adjacency_matrix / conductances
+    weighted_matrix = adjacency_matrix / conductances # weight each edge by 1/R_{ij}
     
     for i in range(n_node):
         weighted_matrix[i,i] = 0 # needed to set the nan_valyes to zero 
