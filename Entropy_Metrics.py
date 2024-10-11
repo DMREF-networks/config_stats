@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 """
 weight_adj computes the weighted adjacency matrix for a 2d conducting network
 
-Parameters : 
+Paramaters : 
     coordinates : a 2d array of x and y coordinates, of dimension (n,2) where n is the number of points 
     in the graph 
     adjacency_matrix : the adjacency_matrix of the graph 
@@ -26,10 +26,10 @@ Local Var:
     y : 1d array of y coordinates 
     dx : intermediary matrix involved in pointwise distance calculation using x coords
     dy : intermediary matrix involved in pointwise distance calculation using y coords
-    dr : weighted adjacency matrix where dr_ij is the distance between the points i and j (all pairs of points)
-    resistances : resistances_ij is the resistivity based on edge-length between the points i and j (all pairs of points)
-    (division by 100 is an arbitrary scaling factor)
-    weighted_matrix : weighted_matrix_ij is the conductance between the points i and j (non-zero for connected pairs of points)
+    dr : weighted adjacency matrix where dr_ij is the distance between the connected points i and j 
+    conductances : conductances_ij is the conductance between the connected points i and j 
+    (division by 100 is a theoretical proportion of conductances to length)
+    weighted_matrix : weighted_matrix_ij is the conductance between the connected points i and j
 """
 
 def weight_adj(coordinates, adjacency_matrix):
@@ -45,21 +45,21 @@ def weight_adj(coordinates, adjacency_matrix):
     
     resistances = dr/100   # this is the resistance R_{ij} between two nodes if an edge existed
     
-    weighted_matrix = adjacency_matrix / resistances # weight each edge by 1/R_{ij}
+    conductances = adjacency_matrix / resistances # weight each edge by 1/R_{ij}
     
     for i in range(n_node):
-        weighted_matrix[i,i] = 0 # needed to set the nan_valyes to zero 
+        conductances[i,i] = 0 # needed to set the nan_valyes to zero 
 
-    return weighted_matrix
+    return conductances
 
 """
-degree_entropy calculates the entropy of the degree probability distribution calculated from the graph 
+degree_entropy calculates the entropy of the degree probability distrobution calculated from the graph 
 
 Parameter : 
     adjacency_matrix : the adjacency matrix of the graph
 
 Returns : 
-    the entropy of the degree probability distribution calculated from the graph
+    the entropy of the degree probability distrobution calculated from the graph
 
 """
 def degree_entropy(adjacency_matrix): 
@@ -71,19 +71,42 @@ def degree_entropy(adjacency_matrix):
     return st.entropy(degree_distrobution) 
 
 """
-edge_entropy calculates the entropy of the edge weights by treating the edge length values as a sampling 
-from some theoretical continuous distribution. The zero values are ignored as 0 entries in the graph note 
+edge_entropy calculates the entropy of the edge length by treating the edge length values as a sampling 
+from some theoretical continous distrobution. The zero values are ignored as 0 entries in the graph note 
 an absence of an edge.
 
 Parameter : 
-    weighted_matrix : the weighted adjacency matrix of the graph
+    adjacency_matrix : the adjacency matrix of the graph
 
 Returns : 
-    the entropy of the edge weights calculated from the graph
+    the entropy of the degree probability distrobution calculated from the graph
 
 """
 
+
 def edge_entropy(weighted_matrix):
+    weights = weighted_matrix.flatten()
+
+    weights = weights[weights!=0]  
+
+    weights = (1./weights)*100.
+
+    return st.differential_entropy(weights)
+
+"""
+conductance_entropy calculates the entropy of the edge length by treating the edge length values as a sampling 
+from some theoretical continous distrobution. The zero values are ignored as 0 entries in the graph note 
+an absence of an edge.
+
+Parameter : 
+    adjacency_matrix : the adjacency matrix of the graph
+
+Returns : 
+    the entropy of the degree probability distrobution calculated from the graph
+
+"""
+
+def conductance_entropy(weighted_matrix):
     weights = weighted_matrix.flatten()
 
     weights = weights[weights!=0]  
@@ -91,10 +114,10 @@ def edge_entropy(weighted_matrix):
     return st.differential_entropy(weights)
 
 """
-resistance calculates the effective resistance of a 2d conducting network assuming current flows from the 
-upper left-most corner to the bottom right-most corner
+resistance calculates the effective resistance of a 2d conducting network assuing current flows from the 
+upper left most corner to the bottom right most corner
 
-Parameters : 
+Paramaters : 
     coordinates : a 2d array of x and y coordinates, of dimension (n,2) where n is the number of points 
     in the graph 
     adjacency_matrix : the adjacency_matrix of the graph 
@@ -111,7 +134,26 @@ def resistance(coordinates, adjacency_matrix):
     Amat = diag - weighted_matrix    # this is the graph Laplacian of the weighted adjacency matrix
     Amat = Amat[:-1,:-1]             # its rank n-1 so remove one degeneracy
     Ivec = np.zeros((n_node-1,1))
-    Ivec[0] = current                # apply current across the diagonal (node n has been removed)
+    Ivec[0] = current 
     voltage = np.linalg.solve(Amat, Ivec)
     effective_resistance = voltage[0,0] / current
     return effective_resistance
+
+
+"""
+WARNING: the many of the capabilities that this function utilizes are depreciated and should not be used;
+it is only here because of records
+"""
+
+# def graph_draw(point_cloud):
+    
+#     delaunay = weights.Voronoi(point_cloud, criterion='rook', clip=sh.box(0,0,2000,2000))
+    
+#     graph = delaunay.to_networkx() 
+     
+#     positions = dict(zip(graph.nodes, point_cloud))
+    
+#     Fignewton = plt.axes(aspect = "equal")
+    
+#     kx.draw(graph,positions,ax = Fignewton,node_size=5,node_color="k",edge_color="k",alpha=1,width = 3)
+#     plt.show()
