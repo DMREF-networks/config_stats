@@ -1,11 +1,5 @@
 import numpy as np 
-import scipy.io
 import scipy.stats as st
-import scipy.integrate
-# import networkx as kx
-# from libpysal import weights
-# import matplotlib.pyplot as plt
-# import shapely.geometry as sh
 import warnings
 warnings.filterwarnings("ignore")
 
