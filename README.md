@@ -33,15 +33,15 @@ upper left-most corner to the bottom right-most corner
 Computes the entropies and resistances across the network and produces plots. Additionally, it outputs the Network_Data and Network_Statistics data files used for plotining in graphing_script.ipynb
 
 ## Figure_Generator
-Figure_Generator is a folder which contains graphing_script.ipynb and the Network_Statistics data set which allows one to recreate the figures in Entropy_Statistics.ipynb without analysis. The data used for this is contained within the Network_Statistics data file. 
+Figure_Generator is a folder which contains graphing_script.ipynb and the Network_Statistics data file which allows one to recreate the figures in Entropy_Statistics.ipynb without analysis. The data used for this is contained within the Network_Statistics data file. 
 
 ### Network_Statistics
 
-Network_Statistics is a data file containing the mean and standard deviation of the resistance, degree, and conductance entropy per iteraion of Lloyd's algorithm. Used to create the figures made by graphing_script.ipynb. Network_Statistics is a dictionary with structure detailed in the last cell of Network_Statistics.ipynb and procedures on reading it can be seen in the example provided in graphing_script.ipynb.
+Network_Statistics is a data file containing the mean and standard deviation of the resistance, degree, and conductance entropy per iteraion of Lloyd's algorithm and is used to create the figures made by graphing_script.ipynb. Network_Statistics is a dictionary with structure detailed in the last cell of Network_Statistics.ipynb and procedures on reading it can be found in the example provided in graphing_script.ipynb.
 
 ### graphing_script.ipynb 
 
-graphing_script.ipynb is a jupyter notebook which produces the figures in Network_Statistics.ipynb without analysis by referencing the Network_Statistics data file
+graphing_script.ipynb is a jupyter notebook which produces the figures in Network_Statistics.ipynb without analysis by referencing the Network_Statistics data file.
 
 ## Network_Data
-Network_Data is a data file which contains the resistance and entropies of each network for sizes N=100, N=200, and N=300. The original data files that were used to calculate these values are not stored or referenced in this file. Network_Data is a dictionary and its structure is detailed in the last cell of Network_Statistics.ipynb. The three keys distinguish by network size, followed by subkeys distingishing the desired metric. A matrix of variable rows and 101 columns is under each subkey. The columns notate what iteration of Llody's algorithm the network has gone through with the first column starting from 0. The rows notate what ensemble the network belongs to. Two networks are part of the same ensemble if they both Lloyd's iterations of a single parent point distrobution. 
+Network_Data is a data file which contains the resistance and entropies of each network for sizes N=100, N=200, and N=300. The original data files that were used to calculate these values are not stored or referenced in this file. Network_Data is a dictionary and its structure is detailed in the last cell of Network_Statistics.ipynb. The three keys distinguish by network size, followed by subkeys distingishing the desired metric. All keys have the same subkeys referencing the metric of the networks of the size notated by the key. A matrix of variable rows and 101 columns is under each subkey. The columns notate what iteration of Llody's algorithm the network has gone through with the first column starting from 0. The rows notate what ensemble the network belongs to. Two networks are part of the same ensemble if they both Lloyd's iterations of a single parent point point cloud.
