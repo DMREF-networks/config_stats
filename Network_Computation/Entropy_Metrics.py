@@ -65,29 +65,6 @@ def degree_entropy(adjacency_matrix):
     return st.entropy(degree_distrobution) 
 
 """
-edge_entropy calculates the entropy of the edge length by treating the edge length values as a sampling 
-from some theoretical continous distrobution. The zero values are ignored as 0 entries in the graph note 
-an absence of an edge.
-
-Parameter : 
-    adjacency_matrix : the adjacency matrix of the graph
-
-Returns : 
-    the entropy of the degree probability distrobution calculated from the graph
-
-"""
-
-
-def edge_entropy(weighted_matrix):
-    weights = weighted_matrix.flatten()
-
-    weights = weights[weights!=0]  
-
-    weights = (1./weights)*100.
-
-    return st.differential_entropy(weights)
-
-"""
 conductance_entropy calculates the entropy of the edge length by treating the edge length values as a sampling 
 from some theoretical continous distrobution. The zero values are ignored as 0 entries in the graph note 
 an absence of an edge.
@@ -100,7 +77,7 @@ Returns :
 
 """
 
-def conductance_entropy(weighted_matrix):
+def edge_entropy(weighted_matrix):
     weights = weighted_matrix.flatten()
 
     weights = weights[weights!=0]  
