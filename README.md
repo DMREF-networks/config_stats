@@ -45,3 +45,6 @@ graphing_script.ipynb is a jupyter notebook which produces the figures in Networ
 
 ## Network_Data
 Network_Data is a data file which contains the resistance and entropies of each network for sizes N=100, N=200, and N=300. The original data files that were used to calculate these values are not stored or referenced in this file. Network_Data is a dictionary and its structure is detailed in the last cell of Network_Statistics.ipynb. The three keys distinguish by network size, followed by subkeys distingishing the desired metric. All keys have the same subkeys referencing the metric of the networks of the size notated by the key. A matrix of variable rows and 101 columns is under each subkey. The columns notate what iteration of Llody's algorithm the network has gone through with the first column starting from 0. The rows notate what ensemble the network belongs to. Two networks are part of the same ensemble if they both Lloyd's iterations of a single parent point point cloud.
+
+## requirement.txt
+A package requirements doc for running the jupyter notebooks and python scripts is this repository.
